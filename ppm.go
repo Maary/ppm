@@ -48,13 +48,13 @@ var (
 )
 
 //NewPPMImage init an ppm image
-func NewPPMImage() *PpImage {
+func NewPPMImage(name, mode string, wdith, height int, MaxPixel uint16) *PpImage {
 	return &PpImage{
-		name:     "",
-		mode:     "",
-		wdith:    0,
-		height:   0,
-		maxPixel: 0,
+		name:     name,
+		mode:     mode,
+		wdith:    wdith,
+		height:   height,
+		maxPixel: MaxPixel,
 	}
 }
 
@@ -115,7 +115,7 @@ func (p *PpImage) Draw(colors interface{}) (err error) {
 		for _, colorH := range colorW {
 			_, err = fmt.Fprintf(f, "%d %d %d\n", colorH.X, colorH.Y, colorH.Z)
 			if err != nil {
-				return err
+				panic(err)
 			}
 		}
 	}
