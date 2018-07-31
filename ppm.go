@@ -28,6 +28,17 @@ type Colors interface {
 
 //CreateColors init the pixel indo
 func (p *PpImage) CreateColors(colorsSet [][]Vector) *PpImage {
+	/*
+		. . . | . . . | . . . | . . .
+		. . . | . . . | . . . | . . .
+		. . . | . . . | . . . | . . .
+		. . . | . . . | . . . | . . .
+		[[{10 10 10} {10 10 10}] [{10 10 10} {10 10 10}]] //2 * 2
+	*/
+	p.pixel = make([][]Vector, p.height)
+	for i := range p.pixel {
+		p.pixel[i] = make([]Vector, p.wdith)
+	}
 
 	for i := 0; i < p.height; i++ {
 		for j := 0; j < p.wdith; j++ {
@@ -36,6 +47,7 @@ func (p *PpImage) CreateColors(colorsSet [][]Vector) *PpImage {
 			p.pixel[i][j].Z = colorsSet[i][j].Z
 		}
 	}
+	fmt.Println("Pixel => ", p.pixel)
 	return p
 }
 
@@ -93,7 +105,7 @@ func (p *PpImage) FillColor(colors [][]Vector) *PpImage {
 }
 
 //Draw the ppm info to file.
-func (p *PpImage) Draw(colors interface{}) (err error) {
+func (p *PpImage) Draw() (err error) {
 	if p.height == 0 || p.wdith == 0 {
 		return nilSizeErr
 	}
